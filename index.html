@@ -3,76 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisa | My Links 🚀</title>
+    <title>Nisa | Digital Card 🚀</title>
     <style>
+        /* 1. Arka Plan Değişikliği: Koyu Neon Geçişi */
         body {
             margin: 0; padding: 0;
-            background: linear-gradient(135deg, #1e1e2f, #3a3a5e);
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a, #1a1a2e); /* Daha koyu, gece modu */
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh;
         }
+        
+        .profile-container {
+            margin-top: 60px; text-align: center;
+        }
+
         .profile-pic {
-            width: 100px; height: 100px;
+            width: 110px; height: 110px;
             border-radius: 50%;
-            border: 3px solid #ff9800;
-            margin-top: 50px;
-            background-color: #555; /* Profil foton yoksa gri görünür */
+            /* 2. Profil Çerçevesi: Neon Pembe/Mor Gölge */
+            border: 4px solid #ff4081; /* Pembe çerçeve */
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.5); /* Pembe parlama */
+            margin: 0 auto;
+            background-color: #333; /* Resim yoksa koyu gri */
         }
-        h1 { margin: 20px 0 5px; font-size: 24px; }
-        p { margin-bottom: 30px; color: #ccc; }
         
-        .links-container { width: 90%; max-width: 400px; }
+        h1 { margin: 25px 0 5px; font-size: 28px; font-weight: 800; }
+        .tagline { margin-bottom: 40px; color: #aaa; font-size: 14px; letter-spacing: 1px; }
         
+        .links-container { width: 90%; max-width: 420px; }
+        
+        /* 3. Link Butonları Efekti: Parlayan Neon Butonlar */
         .link-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05); /* Şeffaf arka plan */
+            padding: 18px;
+            margin-bottom: 20px;
             text-align: center;
-            border-radius: 12px;
+            border-radius: 15px;
             text-decoration: none;
-            color: white;
+            color: #f0f0f0;
             display: block;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: bold;
+            font-weight: 600; font-size: 16px;
         }
+
+        /* Fareyle Üzerine Gelince (Hover) */
         .link-card:hover {
-            background: #ff9800;
-            transform: scale(1.05);
-            color: #1e1e2f;
+            background: #ff4081; /* Pembe arka plan */
+            color: #0f0f1a; /* Koyu yazı */
+            transform: translateY(-5px) scale(1.02); /* Hafif yukarı kalkma ve büyüme */
+            /* Neon Pembe Gölge */
+            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.7); 
         }
-        .footer { margin-top: auto; padding: 20px; font-size: 12px; color: #888; }
+
+        .footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
 
-    <div class="profile-pic"></div> 
-    <h1>Nisa</h1>
-    <p>Junior Developer | Game Enthusiast 🥨</p>
+    <div class="profile-container">
+        <div class="profile-pic"></div> 
+        <h1>Nisa 🚀</h1> <p class="tagline">JUNIOR DEVELOPER | GAME CREATOR 🥨</p>
+    </div>
 
     <div class="links-container">
         
         <a href="https://ecrinnisaceyhan2011-oss.github.io/my-runner-game/" class="link-card" target="_blank">
-            🥨 Simit Runner Oyunumu Oyna!
+            🎮 Simit Runner Oyunumu Oyna!
         </a>
 
         <a href="https://github.com/ecrinnisaceyhan2011-oss" class="link-card" target="_blank">
             💻 GitHub Profilim
         </a>
 
-        <a href="#" class="link-card">
-            📸 Instagram (Yakında)
+        <a href="#" class="link-card" style="opacity: 0.6; cursor: not-allowed;">
+            📝 Mood Diary (Yakında)
         </a>
 
-        <a href="#" class="link-card">
-            ✉️ Bana Ulaşın
+        <a href="#" class="link-card" style="opacity: 0.6; cursor: not-allowed;">
+            🇹🇷 Culture Quiz (Yakında)
         </a>
 
     </div>
 
-    <div class="footer">Made with ❤️ by Nisa - 2026</div>
+    <div class="footer">Created with ❤️ by Nisa | 2026</div>
 
 </body>
 </html>
