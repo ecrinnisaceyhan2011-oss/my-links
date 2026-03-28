@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisa | ✨ Soft Universe 🌸</title>
+    <title>Nisa | Digital Universe 🌸</title>
     <style>
+        /* GENEL SAYFA TASARIMI */
         body {
             margin: 0; padding: 0;
             background: linear-gradient(135deg, #fff5f8, #fce4ec); 
@@ -16,7 +17,7 @@
             position: relative;
         }
 
-        /* ✨ YILDIZ EFEKTİ */
+        /* ✨ SÜZÜLEN YILDIZLAR EFEKTİ */
         .stars {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
@@ -25,22 +26,31 @@
             position: absolute; background-color: #f8bbd0; border-radius: 50%;
             opacity: 0.6; animation: drift linear infinite;
         }
-        .star:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-duration: 10s; animation-delay: 1s; }
-        .star:nth-child(2) { width: 6px; height: 6px; left: 30%; animation-duration: 15s; animation-delay: 3s; }
-        .star:nth-child(3) { width: 3px; height: 3px; left: 50%; animation-duration: 12s; animation-delay: 0s; }
-        .star:nth-child(4) { width: 5px; height: 5px; left: 70%; animation-duration: 18s; animation-delay: 5s; }
-        .star:nth-child(5) { width: 4px; height: 4px; left: 85%; animation-duration: 14s; animation-delay: 2s; }
-        .star:nth-child(6) { width: 7px; height: 7px; left: 20%; animation-duration: 20s; animation-delay: 7s; }
-        .star:nth-child(7) { width: 3px; height: 3px; left: 60%; animation-duration: 11s; animation-delay: 4s; }
+        /* Yıldızların farklı hızlarda süzülmesi */
+        .star:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-duration: 10s; }
+        .star:nth-child(2) { width: 6px; height: 6px; left: 30%; animation-duration: 15s; }
+        .star:nth-child(3) { width: 3px; height: 3px; left: 50%; animation-duration: 12s; }
+        .star:nth-child(4) { width: 5px; height: 5px; left: 70%; animation-duration: 18s; }
+        .star:nth-child(5) { width: 4px; height: 4px; left: 85%; animation-duration: 14s; }
+        .star:nth-child(6) { width: 7px; height: 7px; left: 20%; animation-duration: 20s; }
+        .star:nth-child(7) { width: 3px; height: 3px; left: 60%; animation-duration: 11s; }
 
         @keyframes drift {
-            0% { transform: translateY(-50px) translateX(0); opacity: 0; }
+            0% { transform: translateY(-50px); opacity: 0; }
             10% { opacity: 0.6; }
             90% { opacity: 0.6; }
-            100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
 
-        .content { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        /* İÇERİK KUTUSU */
+        .content { 
+            position: relative; 
+            z-index: 10; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+        }
         
         .profile-container { margin-top: 60px; text-align: center; }
 
@@ -50,75 +60,20 @@
             border: 4px solid #f8bbd0; 
             box-shadow: 0 10px 25px rgba(248, 187, 208, 0.4);
             margin: 0 auto;
-            background-image: url('profile.jpg');
+            background-image: url('profile.jpg'); /* Resmin yüklü olduğundan emin ol */
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
         }
         
         h1 { margin: 25px 0 5px; font-size: 28px; font-weight: 700; color: #880e4f; }
-        .tagline { margin-bottom: 45px; color: #ad1457; font-size: 13px; letter-spacing: 2.5px; font-weight: 600; text-transform: uppercase; }
+        .tagline { margin-bottom: 45px; color: #ad1457; font-size: 13px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; }
         
         .links-container { width: 90%; max-width: 420px; }
         
+        /* BUTON TASARIMI */
         .link-card {
             background: #ffffff;
             padding: 18px;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             text-align: center;
-            border-radius: 25px;
-            text-decoration: none;
-            color: #880e4f;
-            display: block;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #f8bbd0;
-            font-weight: 600; font-size: 16px;
-            box-shadow: 0 4px 15px rgba(248, 187, 208, 0.15);
-        }
-
-        .link-card:hover {
-            background: #f8bbd0;
-            color: #ffffff;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(248, 187, 208, 0.5);
-        }
-
-        .footer { margin-top: auto; padding: 30px; font-size: 12px; color: #ad1457; opacity: 0.7; font-weight: 500; }
-    </style>
-</head>
-<body>
-
-    <div class="stars">
-        <div class="star"></div> <div class="star"></div> <div class="star"></div>
-        <div class="star"></div> <div class="star"></div> <div class="star"></div>
-        <div class="star"></div>
-    </div>
-
-    <div class="content">
-        <div class="profile-container">
-            <div class="profile-pic"></div> 
-            <h1>Nisa 🌸</h1>
-            <p class="tagline">Junior Developer | Creative Mind 🥨</p>
-        </div>
-
-        <div class="links-container">
-            
-            <a href="https://ecrinnisaceyhan2011-oss.github.io/my-runner-game/" class="link-card" target="_blank">
-                🥨 Simit Runner Oyunumu Oyna!
-            </a>
-
-            <a href="https://github.com/ecrinnisaceyhan2011-oss" class="link-card" target="_blank">
-                💻 GitHub Profilim
-            </a>
-
-            <a href="https://ecrinnisaceyhan2011-oss.github.io/mood-diary/" class="link-card" target="_blank">
-                ✨ Mood Diary (Ruh Hali Günlüğü)
-            </a>
-
-        </div>
-
-        <div class="footer">Soft Pink Edition | Made by Nisa ♡ | 2026</div>
-    </div>
-
-</body>
-</html>
+            border-radius
