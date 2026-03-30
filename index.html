@@ -3,98 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisa | Digital Universe 🌸</title>
+    <title>Nisa's Universe 🌸</title>
     <style>
         body {
             margin: 0; padding: 0;
-            background: linear-gradient(135deg, #fff5f8, #fce4ec); 
-            color: #5d4037; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh;
+            background: #fff5f8; font-family: 'Segoe UI', sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        }
+        .container {
+            text-align: center; background: white; padding: 40px;
+            border-radius: 40px; box-shadow: 0 15px 35px rgba(248, 187, 208, 0.4);
+            width: 320px; border: 2px solid #fce4ec;
+        }
+        .profile-img {
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 4px solid #f8bbd0; margin-bottom: 15px;
+        }
+        h1 { color: #ad1457; font-size: 24px; margin-bottom: 5px; }
+        p { color: #880e4f; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
+
+        .link-btn {
+            display: block; text-decoration: none;
+            background: #f8bbd0; color: #880e4f;
+            padding: 15px; margin: 12px 0; border-radius: 20px;
+            font-weight: bold; transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        .link-btn:hover {
+            background: white; border-color: #f8bbd0;
+            transform: scale(1.05); box-shadow: 0 5px 15px rgba(248, 187, 208, 0.3);
         }
 
-        .content { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; 
-            padding-bottom: 50px;
-        }
-        
-        .profile-container { margin-top: 60px; text-align: center; }
+        /* Özel İkonlu Butonlar */
+        .btn-runner { background: #e1f5fe; color: #01579b; }
+        .btn-quiz { background: #fff9c4; color: #f57f17; }
+        .btn-ariana { background: #f3e5f5; color: #7b1fa2; }
 
-        .profile-pic {
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            border: 4px solid #f8bbd0; 
-            box-shadow: 0 8px 20px rgba(248, 187, 208, 0.4);
-            margin: 0 auto;
-            background-image: url('profile.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-color: #fff;
-        }
-        
-        h1 { margin: 20px 0 5px; font-size: 26px; color: #880e4f; }
-        .tagline { margin-bottom: 40px; color: #ad1457; font-size: 13px; font-weight: 600; text-transform: uppercase; }
-        
-        .links-container { width: 90%; max-width: 400px; }
-        
-        .link-card {
-            background: #ffffff;
-            padding: 16px;
-            margin-bottom: 18px;
-            text-align: center;
-            border-radius: 20px;
-            text-decoration: none;
-            color: #880e4f;
-            display: block;
-            transition: 0.3s;
-            border: 1px solid #f8bbd0;
-            font-weight: 600;
-        }
-
-        .link-card:hover {
-            background: #f8bbd0;
-            color: #ffffff;
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(248, 187, 208, 0.3);
-        }
-
-        .footer { margin-top: auto; padding: 20px; font-size: 12px; color: #ad1457; opacity: 0.6; }
+        .footer { margin-top: 25px; font-size: 12px; color: #ce93d8; }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <div class="profile-container">
-            <div class="profile-pic"></div> 
-            <h1>Nisa 🌸</h1>
-            <p class="tagline">Junior Developer | Game Creator 🥨</p>
-        </div>
+<div class="container">
+    <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Nisa" class="profile-img" alt="Nisa">
+    <h1>Nisa's Projects ✨</h1>
+    <p>Web Developer & Creative Coder</p>
 
-        <div class="links-container">
-            
-           <a href="https://ecrinnisaceyhan2011-oss.github.io/my-runner-game/" class="link-btn">🥨 Atmosphere Runner</a>
-            </a>
+    <a href="https://ecrinnisaceyhan2011-oss.github.io/my-runner-game/" class="link-btn btn-runner">
+        🌌 Atmosphere Runner
+    </a>
 
-            <a href="https://ecrinnisaceyhan2011-oss.github.io/mood-diary/" class="link-card" target="_blank">
-                ✨ Mood Diary (Ruh Hali Günlüğü)
-            </a>
+    <a href="https://ecrinnisaceyhan2011-oss.github.io/ariana-quiz/" class="link-btn btn-ariana">
+        🎙️ Ariana's Notes
+    </a>
 
-            <a href="https://ecrinnisaceyhan2011-oss.github.io/culture-quiz/" class="link-card" target="_blank">
-                🌍 Türk Kültürü Bilgi Yarışması
-            </a>
+    <a href="https://ecrinnisaceyhan2011-oss.github.io/culture-quiz/" class="link-btn btn-quiz">
+        🌍 Culture Quiz
+    </a>
 
-            <a href="https://github.com/ecrinnisaceyhan2011-oss" class="link-card" target="_blank">
-                💻 GitHub Profilim
-            </a>
-
-        </div>
-
-        <div class="footer">Created by Nisa ♡ | 2026</div>
-    </div>
+    <div class="footer">Made with ❤️ by Nisa</div>
+</div>
 
 </body>
 </html>
