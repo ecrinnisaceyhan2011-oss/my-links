@@ -3,37 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisa's Universe 🌸</title>
+    <title>My Links | Pembe Dünyam</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            background: #fff5f8; font-family: 'Segoe UI', sans-serif;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        /* GENEL TEMA */
+        body { 
+            background: #ffdef2; /* Senin imza pemben */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 40px 20px;
         }
-        .container {
-            text-align: center; background: white; padding: 40px;
-            border-radius: 40px; box-shadow: 0 15px 35px rgba(248, 187, 208, 0.4);
-            width: 320px; border: 2px solid #fce4ec;
-        }
-        .profile-emoji {
-            font-size: 60px; margin-bottom: 15px; display: block;
-        }
-        h1 { color: #ad1457; font-size: 24px; margin-bottom: 5px; }
-        p { color: #880e4f; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
 
-        .link-btn {
-            display: block; text-decoration: none;
-            padding: 15px; margin: 12px 0; border-radius: 20px;
-            font-weight: bold; transition: 0.3s;
+        .profile-card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            border: 3px solid #ff69b4;
+        }
+
+        .avatar {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        h1 { color: #ff1a8c; margin: 10px 0; font-size: 28px; }
+        p { color: #ff66b2; margin-bottom: 30px; font-weight: 500; }
+
+        /* LİNK KARTLARI */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            background: #fff0f9;
+            padding: 15px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #ff1a8c;
+            font-weight: bold;
+            transition: all 0.3s ease;
             border: 2px solid transparent;
         }
-        .link-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            background: white;
+            border-color: #ff69b4;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
         }
 
-        .btn-runner { background: #e1f5fe; color: #01579b; }
-        .btn-ariana { background: #f3e5f5; color: #7b1fa2; }
-        .btn-quiz { background: #fff9c4; color: #f57f17; }
+        .icon {
+            font-size: 24px;
+            margin-right: 15px;
+            background: white;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
 
-        .footer {
+        /* YENİ MOTOR OYUNU İÇİN ÖZEL STİL (NEON DOKUNUŞ) */
+        .special-link {
+            background: #e6fbff;
+            color: #0088cc;
+            border: 2px dashed #00d4ff;
+        }
+        
+        .special-link:hover {
+            border-color: #00d4ff;
+            background: #f0fdff;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #ff99cc;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="avatar">🌸</div>
+        <h1>Benim Linklerim</h1>
+        <p>Projelerime ve Oyunlarıma Göz At!</p>
+
+        <div class="links-container">
+            
+            <a href="nightmare-twilight.html" class="link-card">
+                <div class="icon">🏃‍♀️</div>
+                <span>Nightmare Twilight Runner</span>
+            </a>
+
+            <a href="guess-song.html" class="link-card">
+                <div class="icon">🎵</div>
+                <span>Guess the Song</span>
+            </a>
+
+            <a href="turkish-quiz.html" class="link-card">
+                <div class="icon">🧠</div>
+                <span>Turkish Quiz Test</span>
+            </a>
+
+            <a href="motor-oyunu.html" class="link-card special-link">
+                <div class="icon">🏍️</div>
+                <span>Night Rider Pro (Yeni!)</span>
+            </a>
+
+            <a href="https://github.com/seninkullaniciadin" target="_blank" class="link-card" style="opacity: 0.7;">
+                <div class="icon">💻</div>
+                <span>GitHub Profilim</span>
+            </a>
+
+        </div>
+    </div>
+
+    <footer>Made with 💖 by Me</footer>
+
+</body>
+</html>
