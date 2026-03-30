@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Night Rider Pro - V5 Official</title>
+    <style>
+        /* GENEL TASARIM */
+        body { margin: 0; overflow: hidden; background: #02050a; touch-action: none; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        canvas { display: block; }
+
+        /* HIZ GÖSTERGESİ VE DURUM */
+        .stats {
+            position: absolute; top: 20px; left: 20px; color: #00d4ff;
+            background: rgba(0,10,20,0.8); padding: 15px; border-radius: 12px; 
+            border: 1px solid #005577; pointer-events: none;
+            box-shadow: 0 0 20px rgba(0,212,255,0.2);
+        }
+        #speed { font-size: 32px; font-weight: bold; text-shadow: 0 0 10px #00d4ff; }
+        .label { font-size: 10px; letter-spacing: 2px; opacity: 0.8; margin-bottom: 5px; }
+
+        /* MOBİL KONTROLLER */
+        #ui {
+            position: absolute; bottom: 40px; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 30px; 
+            box-sizing: border-box; pointer-events: none;
+        }
+        .btn-group { display: flex; gap: 15px; pointer-events: auto; }
+        .btn {
+            width: 75px; height: 75px; background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(0,212,255,0.3); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #00d4ff; font-weight: bold; user-select: none;
+            -webkit-tap-highlight-color: transparent; backdrop-filter: blur(5px);
+        }
+        .btn:active { background: rgba(0,212,255,0.3); transform: scale(0.9); border-color: #00d4ff; }
+        
+        #music-info { 
+            position: absolute; top: 20px; right: 20px; color: #555; 
+            font-size: 10px; background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="stats">
+    <div class="label">NIGHT VELOCITY</div>
+    <div id="speed">000</div>
+    <div style="font-size: 10px; color: #00ffaa; margin-top: 5px;">SYSTEM: ONLINE</div>
+</div>
+
+<div id="music-info">MÜZİK İÇİN EKRANA DOKUNUN</div>
+
+<div id="ui">
+    <div class="btn-group">
+        <div class="btn" id="left">←</div>
+        <div class="btn" id="right">→</div>
+    </div>
+    <div class="btn-group">
+        <div class="btn" id="brake" style="border-color: #ff3366; color: #ff3366;">FREN</div>
+        <div class="btn" id="gas" style="border-color: #00ffaa; color: #00ffaa;">GAZ</div>
+    </div>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="game"></canvas>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const music = document.getElementById('bgMusic');
+const speedEl = document.getElementById('speed');
+
+let w, h, musicActive = false;
+const stars = [];
+
+// Ekran boyutlandırma ve Yıldız oluşturma
+function init() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    stars.length = 0;
+    for(let i=0; i<120; i++) {
+        stars.push({ x: Math.random()*w, y: Math.random()*(h*0.6), s: Math.random()*2, p: Math.random() });
+    }
+}
+window.addEventListener('resize', init);
+init();
+
+// Oyun Verileri
+const world = { gravity: 0.3, friction: 0.98, ground: [] };
+for(let i=0; i<3000; i++) {
+    world.ground.push({ 
+        x: i * 60, 
+        y: h*0.75 + Math.sin(i*0.15)*40 + Math.sin(i*0.06)*70 
+    });
+}
+
+const bike = {
+    x: 200, y: 100, vX: 0, vY: 0,
+    angle: 0, vA: 0,
+    wR: 18, dist: 30
+};
+
+const input = { gas: 0, brake: 0, left: 0, right: 0 };
+
+// Müzik ve Giriş Kontrolü
+function startEngine() {
+    if(!musicActive) {
+        music.play().catch(() => {});
+        musicActive = true;
+        document.getElementById('music-info').innerText = "MIDNIGHT TRAJECTORY - PLAYING";
+    }
+}
+
+function bind(id, key) {
+    const el = document.getElementById(id);
+    const press = (e) => { e.preventDefault(); input[key] = 1; startEngine(); };
+    const release = (e) => { e.preventDefault(); input[key] = 0; };
+    el.onmousedown = el.ontouchstart = press;
+    el.onmouseup = el.ontouchend = release;
+}
+bind('gas', 'gas'); bind('brake', 'brake'); bind('left', 'left'); bind('right', 'right');
+
+// Klavye Desteği
+window.onkeydown = (e) => {
+    startEngine();
+    if(e.code == 'ArrowUp') input.gas = 1;
+    if(e.code == 'ArrowDown') input.brake = 1;
+    if(e.code == 'ArrowLeft') input.left = 1;
+    if(e.code == 'ArrowRight') input.right = 1;
+};
+window.onkeyup = (e) => {
+    if(e.code == 'ArrowUp') input.gas = 0;
+    if(e.code == 'ArrowDown') input.brake = 0;
+    if(e.code == 'ArrowLeft') input.left = 0;
+    if(e.code == 'ArrowRight') input.right = 0;
+};
+
+function getGroundY(x) {
+    const idx = Math.floor(x / 60);
+    if(idx < 0) return h;
+    const p1 = world.ground[idx], p2 = world.ground[idx+1] || p1;
+    const t = (x - p1.x) / 60;
+    return p1.y + t * (p2.y - p1.y);
+}
+
+function update() {
+    if(input.gas) bike.vX += 0.5;
+    if(input.brake) bike.vX -= 0.3;
+    if(input.left) bike.vA -= 0.008;
+    if(input.right) bike.vA += 0.008;
+
+    bike.vY += world.gravity;
+    bike.vX *= world.friction;
+    bike.vA *= 0.9;
+
+    bike.x += bike.vX;
+    bike.y += bike.vY;
+    bike.angle += bike.vA;
+
+    // Tekerlek Fiziği
+    const cos = Math.cos(bike.angle), sin = Math.sin(bike.angle);
+    const wheels = [
+        { x: bike.x - cos*bike.dist, y: bike.y - sin*bike.dist + 15 },
+        { x: bike.x + cos*bike.dist, y: bike.y + sin*bike.dist + 15 }
+    ];
+
+    wheels.forEach((w, i) => {
+        const gy = getGroundY(w.x);
+        if(w.y + bike.wR > gy) {
+            bike.y -= (w.y + bike.wR - gy) * 0.5;
+            bike.vY *= 0.2;
+            bike.vA += (i === 0 ? 0.012 : -0.012);
+            // Eğim Düzeltme
+            let slope = Math.atan2(getGroundY(bike.x+5) - getGroundY(bike.x-5), 10);
+            bike.angle += (slope - bike.angle) * 0.1;
+        }
+    });
+
+    speedEl.innerText = Math.floor(Math.abs(bike.vX * 6)).toString().padStart(3, '0');
+}
+
+function draw() {
+    // 1. Arka Plan (Gece)
+    ctx.fillStyle = '#02050a';
+    ctx.fillRect(0, 0, w, h);
+
+    // Ay
+    ctx.fillStyle = '#f0f0f0';
+    ctx.shadowBlur = 30; ctx.shadowColor = '#fff';
+    ctx.beginPath(); ctx.arc(w - 100, 100, 35, 0, 7); ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Yıldızlar
+    stars.forEach(s => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.2 + Math.abs(Math.sin(Date.now()*0.001 + s.p))})`;
+        ctx.fillRect(s.x, s.y, s.s, s.s);
+    });
+
+    ctx.save();
+    ctx.translate(-bike.x + 200, 0);
+
+    // 2. Arazi
+    ctx.beginPath(); ctx.moveTo(world.ground[0].x, h);
+    world.ground.forEach(pt => ctx.lineTo(pt.x, pt.y));
+    ctx.lineTo(world.ground[world.ground.length-1].x, h);
+    ctx.fillStyle = '#050a10'; ctx.fill();
+    ctx.strokeStyle = '#00d4ff'; ctx.lineWidth = 3; ctx.stroke();
+
+    // 3. Motor Çizimi
+    ctx.translate(bike.x, bike.y);
+    ctx.rotate(bike.angle);
+
+    // Motor Şasisi
+    ctx.fillStyle = '#ff3366';
+    ctx.beginPath();
+    ctx.moveTo(-25, 0); ctx.lineTo(20, 0); ctx.lineTo(25, -15); ctx.lineTo(5, -20); ctx.lineTo(-20, -15);
+    ctx.fill();
+
+    // Sürücü (Kask)
+    ctx.fillStyle = '#00d4ff';
+    ctx.beginPath(); ctx.arc(5, -28, 8, 0, 7); ctx.fill();
+    
+    // Tekerlekler
+    const drawWheel = (x) => {
+        ctx.save();
+        ctx.translate(x, 15);
+        ctx.rotate(bike.x * 0.05); // Tekerlek dönerken jant çizgisini gör
+        ctx.fillStyle = '#111';
+        ctx.beginPath(); ctx.arc(0, 0, bike.wR, 0, 7); ctx.fill();
+        ctx.strokeStyle = '#444'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(-bike.wR, 0); ctx.lineTo(bike.wR, 0); ctx.stroke();
+        ctx.restore();
+    };
+    drawWheel(-bike.dist);
+    drawWheel(bike.dist);
+
+    ctx.restore();
+    
+    update();
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>
