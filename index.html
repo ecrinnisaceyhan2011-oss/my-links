@@ -2,66 +2,170 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nisa's Universe 🌸</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Midnight Trajectory - Ultimate Edition</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            background: #fff5f8; font-family: 'Segoe UI', sans-serif;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        body { margin: 0; overflow: hidden; background: #02050a; touch-action: none; font-family: 'Courier New', monospace; }
+        canvas { display: block; }
+        .stats {
+            position: absolute; top: 20px; left: 20px; color: #00d4ff;
+            background: rgba(0,10,20,0.8); padding: 12px; border-radius: 8px; border: 1px solid #005577;
+            pointer-events: none;
         }
-        .container {
-            text-align: center; background: white; padding: 40px;
-            border-radius: 40px; box-shadow: 0 15px 35px rgba(248, 187, 208, 0.4);
-            width: 320px; border: 2px solid #fce4ec;
+        #ui {
+            position: absolute; bottom: 40px; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 40px; box-sizing: border-box; pointer-events: none;
         }
-        /* Profil Resmini Eski Sade Haline Getirdik */
-        .profile-emoji {
-            font-size: 60px; margin-bottom: 15px; display: block;
+        .btn {
+            width: 80px; height: 80px; background: rgba(0,100,255,0.1);
+            border: 2px solid rgba(0,212,255,0.3); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #00d4ff; font-weight: bold; pointer-events: auto; user-select: none;
         }
-        h1 { color: #ad1457; font-size: 24px; margin-bottom: 5px; }
-        p { color: #880e4f; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
-
-        .link-btn {
-            display: block; text-decoration: none;
-            background: #f8bbd0; color: #880e4f;
-            padding: 15px; margin: 12px 0; border-radius: 20px;
-            font-weight: bold; transition: 0.3s;
-            border: 2px solid transparent;
-        }
-        .link-btn:hover {
-            background: white; border-color: #f8bbd0;
-            transform: scale(1.05);
-        }
-
-        .btn-runner { background: #e1f5fe; color: #01579b; }
-        .btn-quiz { background: #fff9c4; color: #f57f17; }
-        .btn-ariana { background: #f3e5f5; color: #7b1fa2; }
-
-        .footer { margin-top: 25px; font-size: 12px; color: #ce93d8; }
+        .btn:active { background: rgba(0,212,255,0.4); transform: scale(0.9); }
+        #music-status { font-size: 10px; color: #555; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <span class="profile-emoji">🌸</span>
-    <h1>Nisa's Projects ✨</h1>
-    <p>Web Developer & Creative Coder</p>
-
-    <a href="https://ecrinnisaceyhan2011-oss.github.io/my-runner-game/" class="link-btn btn-runner">
-        🌌 Atmosphere Runner
-    </a>
-
-    <a href="https://ecrinnisaceyhan2011-oss.github.io/ariana-quiz/" class="link-btn btn-ariana">
-        🎙️ Ariana's Notes
-    </a>
-
-    <a href="https://ecrinnisaceyhan2011-oss.github.io/culture-quiz/" class="link-btn btn-quiz">
-        🌍 Culture Quiz
-    </a>
-
-    <div class="footer">Made with ❤️ by Nisa</div>
+<div class="stats">
+    <div style="font-size: 10px; letter-spacing: 2px;">SYSTEM: ACTIVE</div>
+    <div id="speed" style="font-size: 26px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;">000</div>
+    <div id="music-status">MÜZİK: BEKLENİYOR (GAZA BASIN)</div>
 </div>
 
+<div id="ui">
+    <div style="display: flex; gap: 20px;">
+        <div class="btn" id="left">←</div>
+        <div class="btn" id="right">→</div>
+    </div>
+    <div style="display: flex; gap: 20px;">
+        <div class="btn" id="brake" style="border-color: #ff3366; color: #ff3366;">FREN</div>
+        <div class="btn" id="gas" style="border-color: #00ffaa; color: #00ffaa;">GAZ</div>
+    </div>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="game"></canvas>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const music = document.getElementById('bgMusic');
+const musicStatus = document.getElementById('music-status');
+
+let w, h, musicStarted = false;
+const stars = [];
+
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    stars.length = 0;
+    for(let i=0; i<150; i++) {
+        stars.push({ x: Math.random()*w, y: Math.random()*(h*0.6), s: Math.random()*2, o: Math.random() });
+    }
+}
+window.onresize = resize;
+resize();
+
+// Müzik Başlatma Fonksiyonu
+function startMusic() {
+    if(!musicStarted) {
+        music.play().catch(() => {});
+        musicStarted = true;
+        musicStatus.innerText = "MÜZİK: ÇALIYOR (MIDNIGHT TRAJECTORY)";
+        musicStatus.style.color = "#00ffaa";
+    }
+}
+
+const physics = { gravity: 0.28, friction: 0.985, ground: [] };
+for(let i=0; i<5000; i++) {
+    physics.ground.push({ x: i*50, y: h*0.8 + Math.sin(i*0.1)*40 + Math.sin(i*0.05)*80 });
+}
+
+const p = { x: 200, y: 100, vX: 0, vY: 0, angle: 0, vA: 0 };
+const keys = { gas: 0, brake: 0, left: 0, right: 0 };
+
+function bind(id, k) {
+    const el = document.getElementById(id);
+    const s = (e) => { 
+        e.preventDefault(); 
+        keys[k] = 1; 
+        startMusic(); // Herhangi bir butona basınca müzik başlar
+    };
+    const e = (e) => { e.preventDefault(); keys[k] = 0; };
+    el.onmousedown = el.ontouchstart = s;
+    el.onmouseup = el.ontouchend = e;
+}
+bind('gas','gas'); bind('brake','brake'); bind('left','left'); bind('right','right');
+
+function getH(x) {
+    const i = Math.floor(x/50);
+    if(i<0) return h;
+    const p1 = physics.ground[i], p2 = physics.ground[i+1] || p1;
+    return p1.y + ((x-p1.x)/50)*(p2.y-p1.y);
+}
+
+function update() {
+    if(keys.gas) p.vX += 0.45;
+    if(keys.brake) p.vX -= 0.3;
+    if(keys.left) p.vA -= 0.007;
+    if(keys.right) p.vA += 0.007;
+
+    p.vY += physics.gravity; p.vX *= physics.friction; p.vA *= 0.92;
+    p.x += p.vX; p.y += p.vY; p.angle += p.vA;
+
+    const wheels = [p.x - Math.cos(p.angle)*30, p.x + Math.cos(p.angle)*30];
+    wheels.forEach((wx, i) => {
+        const gy = getH(wx);
+        if(p.y + 35 > gy) {
+            p.y = gy - 35; p.vY *= 0.1;
+            p.vA += (i==0 ? 0.01 : -0.01);
+            let slope = Math.atan2(getH(p.x+5) - getH(p.x-5), 10);
+            p.angle += (slope - p.angle) * 0.15;
+        }
+    });
+    document.getElementById('speed').innerText = Math.floor(Math.abs(p.vX*7)).toString().padStart(3, '0');
+}
+
+function draw() {
+    // Gece Arka Planı
+    ctx.fillStyle = '#02050a';
+    ctx.fillRect(0, 0, w, h);
+
+    // Ay ve Yıldızlar
+    ctx.fillStyle = '#f0f0f0';
+    ctx.beginPath(); ctx.arc(w - 100, 100, 35, 0, 7); ctx.fill();
+    stars.forEach(s => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.3 + Math.abs(Math.sin(Date.now()*0.001 + s.o))})`;
+        ctx.fillRect(s.x, s.y, s.s, s.s);
+    });
+
+    ctx.save(); ctx.translate(-p.x + 200, 0);
+
+    // Arazi (Neon Yeşil Çizgi)
+    ctx.beginPath(); ctx.moveTo(physics.ground[0].x, h);
+    physics.ground.forEach(pt => ctx.lineTo(pt.x, pt.y));
+    ctx.lineTo(physics.ground[physics.ground.length-1].x, h);
+    ctx.fillStyle = '#050a10'; ctx.fill();
+    ctx.strokeStyle = '#00ffaa'; ctx.lineWidth = 2; ctx.stroke();
+
+    // Motor Çizimi
+    ctx.translate(p.x, p.y); ctx.rotate(p.angle);
+    ctx.fillStyle = '#ff3366'; ctx.fillRect(-25, -5, 50, 12); // Gövde
+    ctx.fillStyle = '#111'; // Tekerlekler
+    ctx.beginPath(); ctx.arc(-25, 18, 16, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(25, 18, 16, 0, 7); ctx.fill();
+    ctx.fillStyle = '#00d4ff'; ctx.beginPath(); ctx.arc(5, -20, 7, 0, 7); ctx.fill(); // Kask
+
+    ctx.restore();
+    update();
+    requestAnimationFrame(draw);
+}
+draw();
+</script>
 </body>
 </html>
