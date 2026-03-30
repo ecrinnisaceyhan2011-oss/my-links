@@ -2,23 +2,50 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Benim Linklerim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benim Dünyam | Portfolyo</title>
     <style>
-        /* Buraya eski CSS kodlarını veya yeni tasarımını ekle */
-        body { background: #111; color: white; font-family: sans-serif; text-align: center; }
-        .link-button { 
-            display: block; padding: 15px; margin: 10px; 
-            background: #222; border: 1px solid #00ffaa; 
-            color: #00ffaa; text-decoration: none; border-radius: 10px;
+        /* PEMBE VE MODERN TEMA */
+        body { 
+            background: #ffdef2; /* O sevdiğin pembe tonu */
+            display: flex; flex-direction: column; align-items: center;
+            font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px;
+        }
+        .container {
+            max-width: 500px; width: 100%; text-align: center;
+            background: white; padding: 30px; border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+        }
+        h1 { color: #ff4da6; }
+        p { color: #888; }
+        
+        /* BUTONLAR */
+        .btn {
+            display: block; padding: 15px; margin: 15px 0;
+            background: #ff4da6; color: white; text-decoration: none;
+            border-radius: 15px; font-weight: bold; transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); background: #ff1a8c; }
+        
+        /* OYUN BUTONU ÖZEL (NEON) */
+        .btn-game {
+            background: #00d4ff; border: 2px solid #005577;
         }
     </style>
 </head>
 <body>
-    <h1>Portfolyoma Hoş Geldiniz</h1>
-    
-    <a href="motor-oyunu.html" class="link-button">🏍️ Night Rider Pro (Oyunu Oyna)</a>
 
-    <a href="kultur-testi.html" class="link-button">🧠 Kültür Testi</a>
-    <a href="https://github.com/kullaniciadin" class="link-button">💻 GitHub Profilim</a>
+<div class="container">
+    <div style="font-size: 50px;">🌸</div>
+    <h1>Hoş Geldin!</h1>
+    <p>Projelerimi ve linklerimi burada bulabilirsin.</p>
+
+    <a href="motor.html" class="btn btn-game">🏍️ Night Rider Pro (OYNA)</a>
+
+    <a href="kultur-testi.html" class="btn">🧠 Kültür Testi</a>
+    <a href="mood-diary.html" class="btn">📔 Mood Diary</a>
+    <a href="https://github.com/kullaniciadin" class="btn" style="background:#333">💻 GitHub Profilim</a>
+</div>
+
 </body>
 </html>
