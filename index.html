@@ -3,49 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benim Dünyam | Portfolyo</title>
+    <title>Nisa's Universe 🌸</title>
     <style>
-        /* PEMBE VE MODERN TEMA */
-        body { 
-            background: #ffdef2; /* O sevdiğin pembe tonu */
-            display: flex; flex-direction: column; align-items: center;
-            font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px;
+        body {
+            margin: 0; padding: 0;
+            background: #fff5f8; font-family: 'Segoe UI', sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
         .container {
-            max-width: 500px; width: 100%; text-align: center;
-            background: white; padding: 30px; border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            text-align: center; background: white; padding: 40px;
+            border-radius: 40px; box-shadow: 0 15px 35px rgba(248, 187, 208, 0.4);
+            width: 320px; border: 2px solid #fce4ec;
         }
-        h1 { color: #ff4da6; }
-        p { color: #888; }
-        
-        /* BUTONLAR */
-        .btn {
-            display: block; padding: 15px; margin: 15px 0;
-            background: #ff4da6; color: white; text-decoration: none;
-            border-radius: 15px; font-weight: bold; transition: 0.3s;
+        .profile-emoji {
+            font-size: 60px; margin-bottom: 15px; display: block;
         }
-        .btn:hover { transform: scale(1.05); background: #ff1a8c; }
-        
-        /* OYUN BUTONU ÖZEL (NEON) */
-        .btn-game {
-            background: #00d4ff; border: 2px solid #005577;
+        h1 { color: #ad1457; font-size: 24px; margin-bottom: 5px; }
+        p { color: #880e4f; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
+
+        .link-btn {
+            display: block; text-decoration: none;
+            padding: 15px; margin: 12px 0; border-radius: 20px;
+            font-weight: bold; transition: 0.3s;
+            border: 2px solid transparent;
         }
-    </style>
-</head>
-<body>
+        .link-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-<div class="container">
-    <div style="font-size: 50px;">🌸</div>
-    <h1>Hoş Geldin!</h1>
-    <p>Projelerimi ve linklerimi burada bulabilirsin.</p>
+        .btn-runner { background: #e1f5fe; color: #01579b; }
+        .btn-ariana { background: #f3e5f5; color: #7b1fa2; }
+        .btn-quiz { background: #fff9c4; color: #f57f17; }
 
-    <a href="motor.html" class="btn btn-game">🏍️ Night Rider Pro (OYNA)</a>
-
-    <a href="kultur-testi.html" class="btn">🧠 Kültür Testi</a>
-    <a href="mood-diary.html" class="btn">📔 Mood Diary</a>
-    <a href="https://github.com/kullaniciadin" class="btn" style="background:#333">💻 GitHub Profilim</a>
-</div>
-
-</body>
-</html>
+        .footer {
